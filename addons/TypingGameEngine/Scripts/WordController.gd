@@ -18,9 +18,10 @@ func _enter_tree():
 	print("Word Controller created")
 
 func _ready():
-	new_word("hola",Vector2 (100,0),DirectionEnum.STATIC, 20)
-	new_word("mundo",Vector2 (100,100),DirectionEnum.STATIC, 20)
-	new_word("como va",Vector2 (100,200),DirectionEnum.STATIC, 20)
+	pass
+#	new_word("hola",Vector2 (100,0),DirectionEnum.STATIC, 20)
+#	new_word("mundo",Vector2 (100,100),DirectionEnum.STATIC, 20)
+#	new_word("como va",Vector2 (100,200),DirectionEnum.STATIC, 20)
 
 # This method creates a new word with:
 # 	word_text:String = the word/text you want to set
