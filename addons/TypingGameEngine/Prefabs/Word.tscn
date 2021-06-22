@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/TypingGameEngine/FontResources/defaultFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/TypingGameEngine/Scripts/Word.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 250, 50 )
+
+[node name="Word" type="Control"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+text = "HOLA MUNDO"
+
+[node name="RB2D" type="RigidBody2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+gravity_scale = 0.0
+
+[node name="WordCollision" type="CollisionShape2D" parent="RB2D"]
+position = Vector2( 250, 50 )
+shape = SubResource( 1 )
+
+[node name="Back" type="Label" parent="RB2D"]
+custom_fonts/font = ExtResource( 1 )
+text = "hello world"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Front" type="Label" parent="RB2D"]
+margin_bottom = 100.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
