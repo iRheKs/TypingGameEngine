@@ -4,7 +4,7 @@ class_name WordController
 # Enumerator for the direction which the word is moving
 enum DirectionEnum {UPWARDS, DOWNWARDS, LEFT, RIGHT, STATIC = -1}
 
-var _word_prefab = preload("res://addons/TypingGameEngine/Prefabs/Word.tscn")
+var _word_prefab = load("res://addons/TypingGameEngine/Prefabs/Word.tscn")
 
 var _word_pool
 # Exported word variables
