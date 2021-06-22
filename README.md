@@ -28,7 +28,7 @@ This is a simple godot plugin made in gdScript that helps you create a typing ga
 ### Installing
 
 Download the addons folder into your godot project. If you already have an addons folder just accept combination of the folders.
-For more information go to [InstallingPlugins] (https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html) from godot's official documentation.
+For more information go to [Installing Plugins](https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html) from godot's official documentation.
 
 ### Prerequisites
 
