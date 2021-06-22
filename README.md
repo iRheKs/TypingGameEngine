@@ -1,22 +1,22 @@
-<p align="center">
+<!--<p align="center">
   <a href="" rel="noopener">
  <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
-</p>
+</p>-->
 
-<h3 align="center">Project Title</h3>
+<h3 align="center">Typing Game Engine</h3>
 
-<div align="center">
+<!--<div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+[![License](https://img.shields.io/badge/license-GNU-GPL-blue.svg)](/LICENSE)
 
-</div>
+</div>-->
 
 ---
 
-<p align="center"> Few lines describing your project.
+<p align="center"> Simple typing game engine for godot engine 3.3. Make typing games way easier with this tool.
     <br> 
 </p>
 
@@ -24,91 +24,65 @@
 
 - [About](#about)
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
+- [Examples](#examples)
 - [Usage](#usage)
-- [Built Using](#built_using)
 - [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+This is a simple godot plugin made in gdScript that helps you create a typing game. For now it's really simple but the idea is to make it grow so it has more options. 
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
+### Installing
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+Download the addons folder into your godot project. If you already have an addons folder just accept combination of the folders.
+For more information go to [InstallingPlugins] (https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html) from godot's official documentation.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
+You need a godot proyect to be able to install this plugin.
 
-```
-Give examples
-```
+## 🔧 Examples <a name = "examples"></a>
 
-### Installing
+Here you have some examples of use of the plugin.
 
-A step by step series of examples that tell you how to get a development env running.
+### Scene: 1
 
-Say what the step will be
+In this example you can see how to create words that move and have lifespan. Getting the word right before despawning will give you points.
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
-## 🔧 Running the tests <a name = "tests"></a>
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
+```gdscript
 Give an example
 ```
 
-### And coding style tests
+### Scene: 2
 
-Explain what these tests test and why
+In this example you can see how to create words that are static and have no lifespan. Failing to get the word right will get you killed if else you will kill the enemy.
 
-```
+```gdscript
 Give an example
 ```
 
 ## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+### Normal mode
 
-## 🚀 Deployment <a name = "deployment"></a>
+First create a node `WordController` this will create a node wich you can access from your game controller. 
 
-Add additional notes about how to deploy this on a live system.
+### Singleton mode
 
-## ⛏️ Built Using <a name = "built_using"></a>
+If you wish the `WordController.gd` script can be added to the autoload settings so it can be used as a singleton. In this case, theres no need to add the controller as a node, but you will need to set your custom font and font size in runtime to the controller.
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+
+It's also possible to set a custom font to each word separately.
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
-
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
+- [@iRheKs](https://github.com/iRheKs) - Idea & Initial work
 
 ## 🎉 Acknowledgements <a name = "acknowledgement"></a>
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+- [@Rafalagoon](https://github.com/rafalagoon) for introducing godot in his streams in [twitch](https://www.twitch.tv/rafalagoon). Also you can follow him on [twitter](https://twitter.com/RafaLagoon).
+- Thanks to my friend [@cronorobs](https://github.com/cronorobs) for encouraging me to start this project in godot.
+- All references used from godot's official [documentation](https://docs.godotengine.org/en/stable/).
