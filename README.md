@@ -3,23 +3,13 @@
  <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
 </p>-->
 
-<h3 align="center">Typing Game Engine</h3>
-
-<!--<div align="center">
-
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-[![License](https://img.shields.io/badge/license-GNU-GPL-blue.svg)](/LICENSE)
-
-</div>-->
-
----
+<h1 align="center">Typing Game Engine</h3>
 
 <p align="center"> Simple typing game engine for godot engine 3.3. Make typing games way easier with this tool.
     <br> 
 </p>
 
+---
 ## 📝 Table of Contents
 
 - [About](#about)
