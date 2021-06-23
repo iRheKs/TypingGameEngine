@@ -13,16 +13,17 @@ __meta__ = {
 }
 text = "HOLA MUNDO"
 
-[node name="RB2D" type="RigidBody2D" parent="."]
+[node name="RB2D" type="KinematicBody2D" parent="."]
 collision_layer = 0
 collision_mask = 0
-gravity_scale = 0.0
 
 [node name="WordCollision" type="CollisionShape2D" parent="RB2D"]
 position = Vector2( 250, 50 )
 shape = SubResource( 1 )
 
 [node name="Back" type="Label" parent="RB2D"]
+margin_right = 321.0
+margin_bottom = 51.0
 custom_fonts/font = ExtResource( 1 )
 text = "hello world"
 uppercase = true

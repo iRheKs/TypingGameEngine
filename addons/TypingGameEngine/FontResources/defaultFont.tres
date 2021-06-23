@@ -3,5 +3,5 @@
 [ext_resource path="res://addons/TypingGameEngine/Fonts/Titillium-Bold.otf" type="DynamicFontData" id=1]
 
 [resource]
-size = 100
+size = 50
 font_data = ExtResource( 1 )

@@ -10,10 +10,13 @@ var _word_pool
 # Exported word variables
 # The font the words are going to use
 export(Font) var word_font = preload("res://addons/TypingGameEngine/FontResources/defaultFont.tres")
+# Color of the words to be instantiated
+export(Color) var word_color = Color.white
 # Size of the words to be instantiated
 export(int, 10, 100, 1) var word_size = 100
 # Size of the word pool, how many words will be created at the ready function
 export(int, 10, 100, 1) var pool_size = 10
+
 # Signals emitted by the controller (signals comming from each word)
 signal word_finished(word_text)
 signal word_missed(word_text)
@@ -36,23 +39,25 @@ func _ready():
 # 	lifespan:float = the life time the word will be in available in seconds, 0 is infinite. 0 as default
 func new_word(word_text:String, position:Vector2, direction:int = DirectionEnum.STATIC, speed:float = 0, lifespan:float = 0):
 	var word_prefab_instance = _word_pool.get_word()
-	_set_word_properties(word_prefab_instance, word_font, word_size, word_text, position, direction, speed, lifespan)
+	_set_word_properties(word_prefab_instance, word_font, word_size, word_color, word_text, position, direction, speed, lifespan)
 	_connect_word_signals(word_prefab_instance)
 	word_prefab_instance.respawn_word()
 
-func new_word_custom_font(_word_text:String, _position:Vector2, _direction:int = DirectionEnum.STATIC, _speed:float = 0, _lifespan:float = 0, _word_size:int = 10, _word_font:Font = load("res://addons/TypingGameEngine/FontResources/defaultFont.tres").new()):
+func new_word_custom_font(_word_text:String, _position:Vector2, _direction:int = DirectionEnum.STATIC, _speed:float = 0, _lifespan:float = 0, _word_size:int = 10, _word_color:Color = Color.white, _word_font:Font = load("res://addons/TypingGameEngine/FontResources/defaultFont.tres").new()):
 	word_font = _word_font
 	word_size = _word_size
+	word_color = _word_color
 	new_word(_word_text, _position, _direction, _speed, _lifespan)
 
-func _set_word_properties(_word_prefab_instance, _word_font:Font, _word_size:int, _word_text:String, _position:Vector2, _direction:int, _speed:float, _lifespan:float):
+func _set_word_properties(_word_prefab_instance, _word_font:Font, _word_size:int, _word_color:Color, _word_text:String, _position:Vector2, _direction:int, _speed:float, _lifespan:float):
 	_word_prefab_instance.set_font(_word_font)
 	_word_prefab_instance.set_font_size(_word_size)
+	_word_prefab_instance.set_word_color(_word_color)
 	_word_prefab_instance.set_text(_word_text)
-	_word_prefab_instance.set_global_position(_position)
-	_word_prefab_instance.set_direction(_direction)
 	_word_prefab_instance.set_speed(_speed)
+	_word_prefab_instance.set_direction(_direction)
 	_word_prefab_instance.set_lifespan(_lifespan)
+	_word_prefab_instance.set_word_position(_position)
 	_word_prefab_instance.set_collision_size()
 
 func _start_pool():
@@ -63,8 +68,9 @@ func _start_pool():
 		add_child(_word_pool)
 
 func _connect_word_signals(word_prefab_instance):
+#	TODO: if word is not conected: conect else do nothing
 	word_prefab_instance.connect("word_correct", self, "_on_Word_finished")
-	word_prefab_instance.connect("word_missed", self, "_on_Word_unfinished")
+	word_prefab_instance.connect("word_missed", self, "_on_Word_missed")
 	word_prefab_instance.connect("word_fail", self, "_on_Word_failed")
 
 func _on_Word_finished(word_text:String, word:Control):
