@@ -58,7 +58,7 @@ Give an example
 
 ### Normal mode
 
-First create a node `WordController` this will create a node wich you can access from your game controller. 
+First create a node `WordController` this will create a node wich you can access from your game controller. Add it as child of your game controller to have easier access.
 
 ### Singleton mode
 
@@ -75,4 +75,5 @@ It's also possible to set a custom font to each word separately.
 
 - [@Rafalagoon](https://github.com/rafalagoon) for introducing godot in his streams in [twitch](https://www.twitch.tv/rafalagoon). Also you can follow him on [twitter](https://twitter.com/RafaLagoon).
 - Thanks to my friend [@cronorobs](https://github.com/cronorobs) for encouraging me to start this project in godot.
+- All assets used are from [Kenney](https://kenney.nl/)
 - All references used from godot's official [documentation](https://docs.godotengine.org/en/stable/).

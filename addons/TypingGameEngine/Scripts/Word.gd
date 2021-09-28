@@ -13,7 +13,7 @@ var _velocity:Vector2
 # OnReady variables/nodes
 onready var _rb2D = self.get_node("RB2D")
 onready var _back_label = _rb2D.get_node("Back") #label containing the main word
-onready var _front_label = _rb2D.get_node("Front") #label containing the curremt word
+onready var _front_label = _rb2D.get_node("Front") #label containing the current word
 onready var _word_collision = _rb2D.get_node("WordCollision")
 # Word signals to be emitted
 signal word_correct(word_text, word_node) #signal emitted when word is correctly entered

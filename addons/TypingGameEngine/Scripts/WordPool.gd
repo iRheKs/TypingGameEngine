@@ -30,3 +30,7 @@ func set_pool_size(size:int):
 
 func set_word_reference(word):
 	_word_reference = word
+
+func despawn_words():
+	for word in _word_pool:
+		word.despawn_word()
