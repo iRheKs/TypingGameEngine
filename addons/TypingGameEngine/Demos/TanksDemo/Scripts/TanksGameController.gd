@@ -14,11 +14,11 @@ func _ready():
 	word_controller.connect("word_failed", self, "_on_WordController_word_failed")
 	word_on_enemy(enemy_tank_1, enemy_tank_1.word)
 	
-#	we check before trying to shoot an enemy whether it exists or not
+#	Check before trying to shoot an enemy whether it exists or not
 func _on_WordController_word_finished(word_text:String):
 	if (is_instance_valid(enemy_tank_1) and word_text == enemy_tank_1.word):
 			player_shoots(enemy_tank_1.position)
-#			after shooting one enemy, we instance the second enemy word
+#			after shooting one enemy, the second enemy word is instanced so words don't overlap and second tank kills the player
 			word_on_enemy(enemy_tank_2, enemy_tank_2.word)
 	elif(is_instance_valid(enemy_tank_2) and (word_text == enemy_tank_2.word)):
 		player_shoots(enemy_tank_2.position)

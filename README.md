@@ -22,7 +22,7 @@
 
 ## 🧐 About <a name = "about"></a>
 
-This is a simple godot plugin made in gdScript that helps you create a typing game. For now it's really simple but the idea is to make it grow so it has more options. 
+This is a simple godot plugin made in gdScript that helps creating a typing game. For now it's really simple but the idea is to make it grow so it has more options. All improvements are welcome and will be studied to be included in the proyect.
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 ### Installing
@@ -32,33 +32,85 @@ For more information go to [Installing Plugins](https://docs.godotengine.org/en/
 
 ### Prerequisites
 
-You need a godot proyect to be able to install this plugin.
+A godot proyect is needed to be able to install this plugin in.
 
 ## 🔧 Examples <a name = "examples"></a>
 
-Here you have some examples of use of the plugin.
+Here there are some examples of use of the plugin.
 
 ### Scene: 1
 
-In this example you can see how to create words that move and have lifespan. Getting the word right before despawning will give you points.
+In this example how to create words that move and have lifespan is shown. Getting the word right before despawning will give you points. It will also tell if a word was missed
 
 ```gdscript
-Give an example
+# First create connection to the word controller
+onready var word_controller = $WordController
+
+# When node ready connection with the signals are made (this demo uses word_finished and word_missed signals)
+func _ready():
+	word_controller.connect("word_finished", self, "_on_WordController_word_finished")
+	word_controller.connect("word_missed", self, "_on_WordController_word_missed")
+
+# At some point in the process a word can be created from a word_list String Array
+# position, direction speed and lifespan are setted by the game controller
+func _process():
+  ...
+  word_controller.new_word(word_list[random_word_index], get_random_position(word_list[random_word_index]), word_controller.DirectionEnum.DOWNWARDS, word_speed, word_lifespan)
+  ...
+
+# In the defined event methods things such as setting a score or referencing a missed word can be done 
+# these methods may have the name you desire
+func _on_WordController_word_finished(word_text:String):
+	score += 1
+	score_label.text = "Score: " + score as String
+
+func _on_WordController_word_missed(word_text:String):
+	missed_word_label.text = "Last missed: " + word_text
 ```
 
 ### Scene: 2
 
-In this example you can see how to create words that are static and have no lifespan. Failing to get the word right will get you killed if else you will kill the enemy.
+In this example how to create words that are static and have no lifespan is shown. Failing to get the word right will get the player killed if else the player will kill the enemy. It will also despawn all pooled words if player is killed
 
 ```gdscript
-Give an example
+# First create connection to the word controller
+onready var word_controller = $WordController
+
+# When node ready connection with the signals are made (this demo uses word_finished and word_failed signals)
+func _ready():
+	word_controller.connect("word_finished", self, "_on_WordController_word_finished")
+	word_controller.connect("word_failed", self, "_on_WordController_word_failed")
+  word_on_enemy(enemy_tank_1, enemy_tank_1.word)
+
+# This method creates an static word on top of the enemy tank
+func word_on_enemy(enemy:Node2D, word:String):
+	var word_position = Vector2(enemy.position.x - 35, enemy.position.y - 70)
+	word_controller.new_word(word, word_position)
+
+#	Check before trying to shoot an enemy whether it exists or not
+func _on_WordController_word_finished(word_text:String):
+	if (is_instance_valid(enemy_tank_1) and word_text == enemy_tank_1.word):
+			player_shoots(enemy_tank_1.position)
+#			after shooting one enemy, the second enemy word is instanced so words don't overlap and second tank kills the player
+			word_on_enemy(enemy_tank_2, enemy_tank_2.word)
+	elif(is_instance_valid(enemy_tank_2) and (word_text == enemy_tank_2.word)):
+		player_shoots(enemy_tank_2.position)
+
+# If failed to get the word right enemy will shoot the player
+func _on_WordController_word_failed(word_text:String):
+	enemy_shoots(player.position, word_text)
+
+# On game over, due to all words being static this method can be used to despawn them, it will make all the pooled words non-visible and also stop their processes
+func game_over():
+  ...
+	word_controller.despawn_words()
 ```
 
 ## 🎈 Usage <a name="usage"></a>
 
 ### Normal mode
 
-First create a node `WordController` this will create a node wich you can access from your game controller. 
+First create a node `WordController` this will create a node wich can be accessed from a game controller. 
 
 ### Singleton mode
 
