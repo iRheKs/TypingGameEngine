@@ -15,7 +15,7 @@ func _ready():
 func get_word():
 	var next_available = null
 	for i in range(_word_pool.size()):
-		if not _word_pool[i].visible:
+		if not _word_pool[i].is_visible():
 			next_available = _word_pool[i]
 			return next_available
 	if next_available == null:
@@ -30,3 +30,7 @@ func set_pool_size(size:int):
 
 func set_word_reference(word):
 	_word_reference = word
+
+func despawn_words():
+	for word in _word_pool:
+		word.despawn_word()
