@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/TypingGameEngine/Demos/TanksDemo/Resources/PNG/Bullets/bulletBlueSilver.png" type="Texture" id=1]
+[ext_resource path="res://addons/TypingGameEngine/Demos/TanksDemo/Resources/Prefabs/Bullet.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6, 13 )
+
+[node name="Bullet" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource( 2 )
+
+[node name="BulletSprite" type="Sprite" parent="."]
+position = Vector2( 13, 0 )
+rotation = -1.5708
+texture = ExtResource( 1 )
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 13, 0 )
+rotation = -1.5708
+shape = SubResource( 1 )

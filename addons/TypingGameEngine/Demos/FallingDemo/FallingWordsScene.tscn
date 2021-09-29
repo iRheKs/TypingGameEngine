@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/TypingGameEngine/Demos/FallingDemo/Resources/backgroundColorGrass.png" type="Texture" id=1]
+[ext_resource path="res://addons/TypingGameEngine/Scripts/WordController.gd" type="Script" id=2]
+[ext_resource path="res://addons/TypingGameEngine/Demos/FallingDemo/Scripts/FallingGameController.gd" type="Script" id=3]
+[ext_resource path="res://addons/TypingGameEngine/Fonts/Titillium-Regular.otf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 512, 390 )
+texture = ExtResource( 1 )
+
+[node name="GameController" type="Node" parent="."]
+script = ExtResource( 3 )
+spawn_cooldown = 3.0
+word_lifespan = 10.0
+word_speed = 2.0
+word_list = [ "Hola", "adios", "hasta luego", "test", "knekro", "morphains", "revenant", "holga", "gutemberg", "alexelcapo" ]
+
+[node name="WordController" type="Node" parent="GameController"]
+script = ExtResource( 2 )
+word_color = Color( 0.333333, 0.333333, 0.333333, 1 )
+word_size = 50
+
+[node name="ScoreLabel" type="Label" parent="GameController"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 155.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Score: "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissedWordLabel" type="Label" parent="GameController"]
+margin_left = 716.575
+margin_top = 14.2426
+margin_right = 1003.57
+margin_bottom = 65.2426
+grow_horizontal = 0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Last missed:"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

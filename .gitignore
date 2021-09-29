@@ -4,10 +4,8 @@
 export.cfg
 export_presets.cfg
 *.godot
-*.tscn
 *.tres
 *.import
-icon.png
 
 # Mono-specific ignores
 .mono/
