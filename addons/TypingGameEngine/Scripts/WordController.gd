@@ -82,10 +82,12 @@ func _start_pool():
 		add_child(_word_pool)
 
 func _connect_word_signals(word_prefab_instance):
-#	TODO: if word is not conected: conect else do nothing
-	word_prefab_instance.connect("word_correct", self, "_on_Word_finished")
-	word_prefab_instance.connect("word_missed", self, "_on_Word_missed")
-	word_prefab_instance.connect("word_fail", self, "_on_Word_failed")
+	if not(word_prefab_instance.is_connected("word_correct",self,"_on_Word_finished")):
+		word_prefab_instance.connect("word_correct", self, "_on_Word_finished")
+	if not(word_prefab_instance.is_connected("word_missed",self,"_on_Word_missed")):
+		word_prefab_instance.connect("word_missed", self, "_on_Word_missed")
+	if not(word_prefab_instance.is_connected("word_fail",self,"_on_Word_failed")):
+		word_prefab_instance.connect("word_fail", self, "_on_Word_failed")
 
 func _on_Word_finished(word_text:String, word:Control):
 	emit_signal("word_finished", word_text)
