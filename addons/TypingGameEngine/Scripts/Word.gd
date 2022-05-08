@@ -10,6 +10,8 @@ var _lifespan:float
 var _current_lifespan:float
 var _direction:int
 var _velocity:Vector2
+var _target:Node2D
+var _offset:Vector2
 # OnReady variables/nodes
 onready var _rb2D = self.get_node("RB2D")
 onready var _back_label = _rb2D.get_node("Back") #label containing the main word
@@ -54,6 +56,9 @@ func _physics_process(delta):
 				_velocity = Vector2.RIGHT * _speed
 	elif _direction == WordController.DirectionEnum.STATIC:
 		_velocity = Vector2.ZERO
+	elif _direction == WordController.DirectionEnum.FOLLOWER:
+		_velocity = Vector2.ZERO
+		rect_global_position = get_target_position()
 	_velocity = _rb2D.move_and_slide(_velocity)
 
 func _input(event):
@@ -69,6 +74,10 @@ func _input(event):
 			emit_signal("word_fail", text, self)
 			_front_label.text = ""
 			_current_text = ""
+
+func get_target_position():
+	var target_pos = _target.position + _offset
+	return target_pos
 
 func despawn_word():
 	set_physics_process(false)
@@ -125,3 +134,7 @@ func set_font(font:Font):
 func set_word_color(back_color:Color, front_color:Color = Color.red):
 	_back_label.add_color_override("font_color", back_color)
 	_front_label.add_color_override("font_color", front_color)
+
+func set_follow_target(target:Node2D, offset:Vector2):
+	_target = target
+	_offset = offset

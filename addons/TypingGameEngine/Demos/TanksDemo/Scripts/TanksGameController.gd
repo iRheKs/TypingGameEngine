@@ -13,6 +13,7 @@ func _ready():
 	word_controller.connect("word_finished", self, "_on_WordController_word_finished")
 	word_controller.connect("word_failed", self, "_on_WordController_word_failed")
 	word_on_enemy(enemy_tank_1, enemy_tank_1.word)
+#	word_on_player()
 	
 #	Check before trying to shoot an enemy whether it exists or not
 func _on_WordController_word_finished(word_text:String):
@@ -35,6 +36,10 @@ func enemy_shoots(player_pos:Vector2, word:String):
 func word_on_enemy(enemy:Node2D, word:String):
 	var word_position = Vector2(enemy.position.x - 35, enemy.position.y - 70)
 	word_controller.new_word(word,word_position)
+
+func word_on_player():
+	var word_position = Vector2(player.position.x - 35, player.position.y - 70)
+	word_controller.new_word("TEST",word_position, {direction = word_controller.DirectionEnum.FOLLOWER, target = player, offset = Vector2(-35,-70)})
 
 func game_over():
 	$GameOverLabel.visible = true

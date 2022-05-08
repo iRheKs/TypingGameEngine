@@ -2,7 +2,9 @@ extends Node
 class_name WordController
 
 # Enumerator for the direction which the word is moving
-enum DirectionEnum {UPWARDS, DOWNWARDS, LEFT, RIGHT, STATIC = -1}
+# FOLLOWER follows a Node2D
+# TODO: Make FOLLOWER follow a Node3D
+enum DirectionEnum {UPWARDS, DOWNWARDS, LEFT, RIGHT, STATIC = -1, FOLLOWER = -2}
 
 var _word_prefab = load("res://addons/TypingGameEngine/Prefabs/Word.tscn")
 
@@ -35,35 +37,34 @@ func _ready():
 # This method creates a new word with:
 # 	word_text:String = the word/text you want to set
 # 	position:Vector2 = the position(global) where the word will be spawned
+# 	From this point these are all the posible options to create a word:
 # 	direction:DirectionEnum = the enumerator for the direction the word will be moving. STATIC as default
 # 	speed:float = the speed which the word will be moving, multiplied by 10. 0 as default
 # 	lifespan:float = the life time the word will be in available in seconds, 0 is infinite. 0 as default
-func new_word(word_text:String, position:Vector2, direction:int = DirectionEnum.STATIC, speed:float = 0, lifespan:float = 0):
+# 	target:Node2D = the target to where a following word will follow. Null as default
+# 	offset:Vector2 = the offset to the target for the following word. Vector2.ZERO as default
+# 	word_size:int = the word size you want to set to this specific word, word_size of controller as default
+# 	word_color:Color = the word color you want to set to this specific word, word_color of controller  as default
+# 	word_font:Font = the word font you want to set to this specific word, word_font of controller as default located in addon resources folder
+func new_word(word_text:String, position:Vector2, options={}):
+	var _direction = (DirectionEnum.STATIC if not options.has('direction') else options['direction'])
+	var _speed = (0 if not options.has('speed') else options['speed'])
+	var _lifespan = (0 if not options.has('lifespan') else options['lifespan'])
+	var _target = (null if not options.has('target') else options['target'])
+	var _offset = (Vector2.ZERO if not options.has('offset') else options['offset'])
+	word_font = (word_font if not options.has('word_font') else options['word_font'])
+	word_size = (word_size if not options.has('word_size') else options['word_size'])
+	word_color = (word_color if not options.has('word_color') else options['word_color'])
 	var word_prefab_instance = _word_pool.get_word()
-	_set_word_properties(word_prefab_instance, word_font, word_size, word_color, word_text, position, direction, speed, lifespan)
+	_set_word_properties(word_prefab_instance, word_font, word_size, word_color, word_text, position, _direction, _speed, _lifespan, _target, _offset)
 	_connect_word_signals(word_prefab_instance)
 	word_prefab_instance.respawn_word()
-
-# This method creates a new word with a custom font:
-# 	word_text:String = the word/text you want to set
-# 	position:Vector2 = the position(global) where the word will be spawned
-# 	direction:DirectionEnum = the enumerator for the direction the word will be moving. STATIC as default
-# 	speed:float = the speed which the word will be moving, multiplied by 10. 0 as default
-# 	lifespan:float = the life time the word will be in available in seconds, 0 is infinite. 0 as default
-# 	_word_size:int = the word size you want to set to this specific word, 10 as default
-# 	_word_color:Color = the word color you want to set to this specific word, Color.white as default
-# 	_word_font:Font = the word font you want to set to this specific word, defaultFont.tres as default located in addon resources folder
-func new_word_custom_font(_word_text:String, _position:Vector2, _direction:int = DirectionEnum.STATIC, _speed:float = 0, _lifespan:float = 0, _word_size:int = 10, _word_color:Color = Color.white, _word_font:Font = load("res://addons/TypingGameEngine/FontResources/defaultFont.tres").new()):
-	word_font = _word_font
-	word_size = _word_size
-	word_color = _word_color
-	new_word(_word_text, _position, _direction, _speed, _lifespan)
 
 # This method can be used to despawn all words in the pool in case they have an infinite lifespan
 func despawn_words():
 	_word_pool.despawn_words()
 
-func _set_word_properties(_word_prefab_instance, _word_font:Font, _word_size:int, _word_color:Color, _word_text:String, _position:Vector2, _direction:int, _speed:float, _lifespan:float):
+func _set_word_properties(_word_prefab_instance, _word_font:Font, _word_size:int, _word_color:Color, _word_text:String, _position:Vector2, _direction:int, _speed:float, _lifespan:float, _target:Node2D, _offset:Vector2):
 	_word_prefab_instance.set_font(_word_font)
 	_word_prefab_instance.set_font_size(_word_size)
 	_word_prefab_instance.set_word_color(_word_color)
@@ -72,6 +73,7 @@ func _set_word_properties(_word_prefab_instance, _word_font:Font, _word_size:int
 	_word_prefab_instance.set_direction(_direction)
 	_word_prefab_instance.set_lifespan(_lifespan)
 	_word_prefab_instance.set_word_position(_position)
+	_word_prefab_instance.set_follow_target(_target, _offset)
 	_word_prefab_instance.set_collision_size()
 
 func _start_pool():

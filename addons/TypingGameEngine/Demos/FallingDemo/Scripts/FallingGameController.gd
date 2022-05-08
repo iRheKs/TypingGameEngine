@@ -22,7 +22,7 @@ func _ready():
 func _process(delta):
 	if current_spawn_cooldown >= spawn_cooldown:
 		var random_word_index = rand_range(0, word_list.size()-1)
-		word_controller.new_word(word_list[random_word_index], get_random_position(word_list[random_word_index]), word_controller.DirectionEnum.DOWNWARDS, word_speed, word_lifespan)
+		word_controller.new_word(word_list[random_word_index], get_random_position(word_list[random_word_index]), {direction = word_controller.DirectionEnum.DOWNWARDS, speed = word_speed, lifespan = word_lifespan})
 		current_spawn_cooldown = 0
 	else:
 		current_spawn_cooldown += delta

@@ -5,11 +5,32 @@ onready var tank_controller = $".."
 
 var _bullet_prefab = load("res://addons/TypingGameEngine/Demos/TanksDemo/Resources/Prefabs/TankBullet.tscn")
 var player:bool
+export (int) var speed = 200
+var target = Vector2()
+var velocity = Vector2()
+var distance = 0.0
+onready var moving:bool = false
 
 func _ready():
 	player = true
+	target = self.global_position
 	tank_controller.connect("player_shot", self, "_on_player_shot")
 	tank_controller.connect("game_over",self,"_on_game_over")
+
+func _input(event):
+	if player:
+		if event.is_action_pressed("click"):
+			target = get_global_mouse_position()
+			look_at(target)
+
+func _physics_process(_delta):
+	if player:
+		velocity = position.direction_to(target) * speed
+		if position.distance_to(target) > 5:
+			velocity = move_and_slide(velocity)
+			moving = true
+		elif moving:
+			moving = false
 
 func _on_player_shot(other_position:Vector2):
 	shoot(other_position)
