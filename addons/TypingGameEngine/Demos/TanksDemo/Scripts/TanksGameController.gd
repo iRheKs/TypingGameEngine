@@ -45,3 +45,9 @@ func game_over():
 	$GameOverLabel.visible = true
 	emit_signal("game_over")
 	word_controller.despawn_words()
+
+
+func _input(event):
+	if event is InputEventKey and event.pressed:
+		if event.scancode == KEY_ESCAPE:
+			get_tree().quit()

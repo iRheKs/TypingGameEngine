@@ -18,10 +18,12 @@ func _ready():
 	tank_controller.connect("game_over",self,"_on_game_over")
 
 func _input(event):
-	if player:
-		if event.is_action_pressed("click"):
-			target = get_global_mouse_position()
-			look_at(target)
+# if you want to use this code, make sure to have a mouse click action in input configuration
+#	if player:
+#		if event.is_action_pressed("click"):
+#			target = get_global_mouse_position()
+#			look_at(target)
+	pass
 
 func _physics_process(_delta):
 	if player:
